@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Tin Can Recipes - Sample Implementation Site</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="assets/stylesheets/styles.9ccf712d4fda16a37cb676448b38f039.css">
+</head>
+
+<body>
+
+<div class="rs-app-layout">
+    <!-- Menu toggle -->
+    <a href="#menu" class="rs-app-menu-toggle">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div class="rs-app-menu">
+        <div class="pure-menu pure-menu-open">
+            <a class="pure-menu-heading" href="#">Recipes</a>
+
+            <ul>
+                <li><a href="#checklist">Checklist</a></li>
+                <li><a href="#video">Video</a></li>
+                <li class="rs-app-menu-item-divided">
+                    <a href="https://registry.tincanapi.com">The Registry</a>
+                </li>
+                <li><a href="http://tincanapi.com">Tin Can API</a></li>
+                </ul>
+        </div>
+    </div>
+
+    <div class="rs-app-main"></div>
+
+    <script src="config.js"></script>
+    <script>
+        (function () {
+            var methods, i;
+
+            var DEBUG = AppConfig.enableDebug || false;
+            if (! DEBUG) {
+                if (! window.console) {
+                    window.console = {};
+                }
+
+                methods = ["log", "debug", "warn", "info"];
+                for (i = 0; i < methods.length; i++) {
+                    console[methods[i]] = function () {};
+                }
+            }
+        }());
+    </script>
+    <script src="assets/javascripts/build.d892d8860d289954ef95db064d0c7623.js"></script>
+</body>
+</html>

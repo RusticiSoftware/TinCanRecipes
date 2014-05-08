@@ -1,0 +1,88 @@
+.rs-checklistItem-box {
+    padding: 10px 5px;
+    margin: 10px;
+    border: 1px solid #E6E6E6;
+    border-radius: 6px;
+}
+
+.rs-checklistItem-indicators {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.rs-checklistItem-indicators div {
+    border-right: 4px solid white;
+}
+
+.rs-checklistItem-indicatorSaving {
+    width: 3em;
+    overflow-x: hidden;
+    display: none;
+    border-right: 4px solid black;
+}
+.rs-checklistItem-indicatorPass {
+    display: none;
+    color: rgb(28, 184, 65);
+}
+.rs-checklistItem-indicatorFail {
+    display: none;
+    color: rgb(202, 60, 60);
+}
+
+.rs-checklistItem-result-passed {
+    .rs-checklistItem-indicatorNone {
+        display: none;
+    }
+    .rs-checklistItem-indicatorPass {
+        display: block;
+    }
+}
+.rs-checklistItem-result-failed {
+    .rs-checklistItem-indicatorNone {
+        display: none;
+    }
+    .rs-checklistItem-indicatorFail {
+        display: block;
+    }
+}
+.rs-checklistItem-saving {
+    .rs-checklistItem-indicatorNone {
+        display: none;
+    }
+    .rs-checklistItem-indicatorPass {
+        display: none;
+    }
+    .rs-checklistItem-indicatorFail {
+        display: none;
+    }
+    .rs-checklistItem-indicatorSaving {
+        display: inline-block;
+    }
+}
+
+button.rs-checklistItem-choicePass {
+    font-size: 85%;
+    color: white;
+    background-color: rgb(28, 184, 65);
+}
+
+button.rs-checklistItem-choiceFail {
+    font-size: 85%;
+    color: white;
+    background-color: rgb(202, 60, 60);
+}
+
+button.rs-checklistItem-clear {
+    font-size: 85%;
+    display: none;
+}
+
+.rs-checklistItem-hasResult {
+    & .rs-checklistItem-choices {
+        display: none;
+    }
+    & .rs-checklistItem-clear {
+        display: inline-block;
+    }
+}

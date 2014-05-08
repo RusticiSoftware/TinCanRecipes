@@ -1,0 +1,21 @@
+<div class="rs-app-header">
+    <h1>Checklist</h1>
+    <h2>Pattern for capturing the observation of a colleague, student, etc.</h2>
+</div>
+
+<div class="rs-app-content">
+    <div class="pure-form" style="margin-top: 50px;">
+        <legend>Interact with Checklist</legend>
+        <label class="{{_className}}-selector">
+            Select a checklist to configure:
+            <select class="{{_className}}-selector">
+                <option value=""></option>
+                {{#each lists}}
+                    <option value="{{this.id}}">{{this.name}}</option>
+                {{/each}}
+            </select>
+        </label>
+    </div>
+    <div class="{{_className}}-cfg-container"></div>
+    <div class="{{_className}}-checklist-container"></div>
+</div>

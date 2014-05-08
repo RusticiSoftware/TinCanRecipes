@@ -1,0 +1,14 @@
+# Third party libraries
+/**/node_modules
+/**/bower_components
+
+# buildables
+/**/build/
+
+# bad.
+.DS_Store
+*.swp
+tmp/
+
+# wild
+todo.md

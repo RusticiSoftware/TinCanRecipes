@@ -1,0 +1,14 @@
+{
+  "name": "tincan-recipes-video",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "tincan-recipes": "0.0.1"
+  },
+  "devDependencies": {
+    "grunt": "0.4.4",
+    "grunt-contrib-jshint": "0.10.0",
+    "grunt-contrib-watch": "0.6.1",
+    "grunt-umd": "1.7.4"
+  }
+}

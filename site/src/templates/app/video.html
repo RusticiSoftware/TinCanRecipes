@@ -1,0 +1,19 @@
+<div class="rs-app-header">
+    <h1>Video</h1>
+    <h2>Pattern for capturing interaction with a video player.</h2>
+</div>
+
+<div class="rs-app-content">
+    <span class="{{_className}}-apiLoadingContent">YouTube API Loading...</span>
+    <div class="{{_className}}-container">
+        <div class="{{_className}}-loader pure-form pure-form-stacked">
+            <div data-subview="agent"></div>
+            <label class="{{_className}}-videoUrl">
+                Enter YouTube URL: <input type="text" class="pure-input-2-3 {{_className}}-videoUrl" placeholder="i.e. http://www.youtube.com/v/ePkDzxVn-7Q">
+            </label>
+            <button class="pure-button {{_className}}-loadVideo">Load Video</button>
+            <span class="{{_className}}-error"></span>
+        </div>
+        <div class="{{_className}}-player"></div>
+    </div>
+</div>

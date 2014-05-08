@@ -1,0 +1,13 @@
+var AppConfig = AppConfig || {};
+
+(function () {
+    /* Values */
+    AppConfig.enableDebug = true;
+    AppConfig.routesRoot = "/";
+    AppConfig.LRS = {
+        endpoint: "",
+        username: "",
+        password: ""
+    };
+    AppConfig.checklists = [];
+}());

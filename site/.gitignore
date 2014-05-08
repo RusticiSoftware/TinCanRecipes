@@ -1,0 +1,5 @@
+# local buildables
+assets/javascripts
+assets/stylesheets
+src/templates.js
+config.js

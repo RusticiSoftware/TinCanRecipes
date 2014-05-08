@@ -1,0 +1,18 @@
+<div class="{{_className}}-box">
+    <div style="text-align: center;">
+        {{config.name}}
+    </div>
+    <div class="{{_className}}-indicators">
+        <div class="{{_className}}-indicatorSaving"><i class="fa fa-3x fa-long-arrow-right rs-slide"></i></div>
+        <div class="{{_className}}-indicatorNone"><i class="fa fa-3x fa-question"></i></div>
+        <div class="{{_className}}-indicatorPass"><i class="fa fa-3x fa-check"></i></div>
+        <div class="{{_className}}-indicatorFail"><i class="fa fa-3x fa-times"></i></div>
+    </div>
+    <div style="text-align: center;">
+        <span class="{{_className}}-choices">
+            <button class="pure-button {{_className}}-choice {{_className}}-choicePass" value="pass"><i class="fa fa-thumbs-up"></i> Pass</button>
+            <button class="pure-button {{_className}}-choice {{_className}}-choiceFail" value="fail"><i class="fa fa-thumbs-down"></i> Fail</button>
+        </span>
+        <button class="pure-button {{_className}}-choice {{_className}}-clear" value="clear">Clear</button>
+    </div>
+</div>

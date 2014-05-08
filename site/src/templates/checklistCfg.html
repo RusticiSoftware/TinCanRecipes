@@ -1,0 +1,28 @@
+<div class="{{_className}}-existing pure-u-1-2">
+    <div style="padding-right: 20px;">
+        <h3>Existing Instances</h3>
+        <span class="{{_className}}-loading-content">Loading...</span>
+        <span class="{{_className}}-loading-errorContent"></span>
+        <span class="{{_className}}-empty-content">No existing instances, configure one to the right.</span>
+        <div class="pure-menu pure-menu-open {{_className}}-existing-menu">
+            <ul class="{{_className}}-existing-container"></ul>
+        </div>
+    </div>
+</div>
+<div class="{{_className}}-new pure-u-1-2">
+    <h3>Start a new instance...</h3>
+    <div class="pure-g-r">
+        <div class="pure-u-1-2">
+            <div class="pure-form pure-form-stacked">
+                <div data-subview="observee"></div>
+            </div>
+        </div>
+        <div class="pure-u-1-2">
+            <div class="pure-form pure-form-stacked">
+                <div data-subview="observer"></div>
+            </div>
+        </div>
+    </div>
+    <button class="pure-button pure-button-primary {{_className}}-createInstance">Create Instance</button>
+    <span class="{{_className}}-error"></span>
+</div>

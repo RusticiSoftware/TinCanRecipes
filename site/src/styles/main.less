@@ -1,0 +1,284 @@
+/**
+ *  Main less file
+ *
+ *  Import all the styles here.
+ *
+ **/
+
+/* import pure css */
+@import "../../bower_components/pure/pure.css";
+
+/* import font awesome css*/
+@import "../../bower_components/Font-Awesome/css/font-awesome.css";
+
+/*
+    clever "save" indicator, similar to FA's rotate, see:
+    https://github.com/FortAwesome/Font-Awesome/blob/master/less/spinning.less
+*/
+.rs-slide {
+  -webkit-animation: slide 1s infinite linear;
+  -moz-animation: slide 1s infinite linear;
+  -o-animation: slide 1s infinite linear;
+  animation: slide 1s infinite linear;
+}
+
+@-moz-keyframes slide {
+    0% { -moz-transform: translateX(-0.25em); }
+    100% { -moz-transform: translateX(1em); }
+}
+@-webkit-keyframes slide {
+    0% { -webkit-transform: translateX(-0.25em); }
+    100% { -webkit-transform: translateX(1em); }
+}
+@-o-keyframes slide {
+    0% { -o-transform: translateX(-0.25em); }
+    100% { -o-transform: translateX(1em); }
+}
+@-ms-keyframes slide {
+    0% { -ms-transform: translateX(-0.25em); }
+    100% { -ms-transform: translateX(1em); }
+}
+@keyframes slide {
+    0% { transform: translateX(-0.25em); }
+    100% { transform: translateX(1em); }
+}
+
+/* styles leveraged in the index.html */
+
+/* Most of these styles come from purecss' left-menu example layout */
+/*
+    Add transition to containers so they can push in and out.
+*/
+.rs-app-layout,
+.rs-app-menu,
+.rs-app-menu-toggle {
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -ms-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+}
+
+/*
+    This is the parent `<div>` that contains the menu and the content area.
+*/
+.rs-app-layout {
+    padding-left: 150px; /* left col width ".rs-app-menu" */
+    left: 0;
+}
+
+/*
+    The content `<div>` is where all your content goes.
+*/
+.rs-app-content {
+    margin: 0 auto;
+    padding: 0 2em;
+    max-width: 800px;
+    margin-bottom: 50px;
+    line-height: 1.6em;
+}
+
+.rs-app-header {
+     margin: 0;
+     color: #333;
+     text-align: center;
+     padding: 2.5em 2em 0;
+     border-bottom: 1px solid #eee;
+ }
+    .rs-app-header h1 {
+        margin: 0.2em 0;
+        font-size: 3em;
+        font-weight: 300;
+    }
+    .rs-app-header h2 {
+        font-weight: 300;
+        color: #ccc;
+        padding: 0;
+        margin-top: 0;
+    }
+
+.rs-app-content h3 {
+    margin: 50px 0 20px 0;
+    font-weight: 300;
+    color: #888;
+}
+
+/*
+The `.rs-app-menu` `<div>` is the parent `<div>` that contains the `.pure-menu` that
+appears on the left side of the page.
+
+By using the combination of `position: fixed; top: 0; bottom:0;`, we can make
+the menu have 100% height and be fixed on the page as the rest of it scrolls.
+*/
+.rs-app-menu {
+    margin-left: -150px; /* this should be ".rs-app-menu" width */
+    width: 150px;
+    position: fixed;
+    top: 0;
+    left: 150px; /* this should be ".rs-app-menu" width */
+    bottom: 0;
+    z-index: 1; /* so the menu or its navicon stays above all content */
+    background: #191818;
+    overflow-y: auto;
+    -webkit-overflow-scroll: touch; /* for smooth scrolling on mobile */
+}
+    /*
+    All anchors inside the menu should be styled like this.
+    */
+    .rs-app-menu a {
+        color: #999;
+        border: none;
+        padding: 0.6em 0 0.6em 0.6em;
+    }
+
+    /*
+    Remove all background/borders, since we are applying them to .rs-app-menu.
+    */
+     .rs-app-menu .pure-menu,
+     .rs-app-menu .pure-menu ul {
+        border: none;
+        background: transparent;
+    }
+
+    /*
+    Add that light border to separate items into groups.
+    */
+    .rs-app-menu .pure-menu ul,
+    .rs-app-menu .pure-menu .rs-app-menu-item-divided {
+        border-top: 1px solid #333;
+    }
+        /*
+        Change color of the anchor links on hover/focus.
+        */
+        .rs-app-menu .pure-menu li a:hover,
+        .rs-app-menu .pure-menu li a:focus {
+            background: #333;
+        }
+
+    /*
+    This styles the selected menu item `<li>`.
+    */
+    .rs-app-menu .pure-menu-selected,
+    .rs-app-menu .pure-menu-heading {
+        background: #1f8dd6;
+    }
+        /*
+        This styles a link within a selected menu item `<li>`.
+        */
+        .rs-app-menu .pure-menu-selected a {
+            color: #fff;
+        }
+
+    /*
+    This styles the menu heading.
+    */
+    .rs-app-menu .pure-menu-heading {
+        font-size: 110%;
+        color: #fff;
+        margin: 0;
+    }
+
+/* -- Dynamic Button For Responsive Menu -------------------------------------*/
+
+/*
+The button to open/close the Menu is custom-made and not part of Pure. Here's
+how it works:
+*/
+
+/*
+`.rs-app-menu-toggle` represents the responsive menu toggle that shows/hides on
+small screens.
+*/
+.rs-app-menu-toggle {
+    display: none; /* show this only on small screens */
+    top: 0;
+    left: 150px; /* `.rs-app-menu`'s width */
+    background: #000;
+    font-size: 10px; /* change this value to increase/decrease button size */
+    z-index: 10;
+    width: 2em;
+    height: auto;
+    padding: 2.2em 1.6em;
+}
+
+    .rs-app-menu-toggle:hover,
+    .rs-app-menu-toggle:focus {
+        background: #000;
+    }
+
+    .rs-app-menu-toggle span {
+        position: relative;
+        display: block;
+    }
+
+    .rs-app-menu-toggle span,
+    .rs-app-menu-toggle span:before,
+    .rs-app-menu-toggle span:after {
+        background-color: #fff;
+        width: 100%;
+        height: 0.2em;
+    }
+
+        .rs-app-menu-toggle span:before,
+        .rs-app-menu-toggle span:after {
+            position: absolute;
+            margin-top: -0.6em;
+            content: " ";
+        }
+
+        .rs-app-menu-toggle span:after {
+            margin-top: 0.6em;
+        }
+
+
+/* -- Responsive Styles (Media Queries) ------------------------------------- */
+
+/*
+Hides the menu at `767px`, but modify this based on your app's needs.
+*/
+@media (max-width: 767px) {
+
+    .header {
+        text-align: left;
+    }
+
+    /*
+    Navigation Push styles.
+    */
+    .rs-app-layout {
+        position: relative;
+        padding-left: 0;
+    }
+        .rs-app-layout.active {
+            position: relative;
+            left: 150px;
+        }
+            .rs-app-layout.active .rs-app-menu {
+                left: 150px;
+                width: 150px;
+            }
+
+    .rs-app-menu {
+        left: 0;
+    }
+
+    .rs-app-menu-toggle {
+        position: fixed;
+        left: 0;
+        display: block; /* show the button on small screens */
+    }
+
+    .rs-app-layout.active .rs-app-menu-toggle {
+        left: 150px;
+    }
+}
+
+/* import other less files */
+
+@import "app";
+@import "views/agent";
+@import "views/app/checklist";
+@import "views/app/video";
+@import "views/checklistCfg";
+@import "views/checklist";
+@import "views/checklistItem";
