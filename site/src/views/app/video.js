@@ -88,6 +88,8 @@ define(
                     var videoUrl = this._nodes.videoUrl.val(),
                         actorCfg = this.subviews.agent.getCfg();
 
+                    this._playerLastState = null;
+                    this._playerLastTime = null;
                     this._loadError(null);
 
                     if (! this._player) {
@@ -117,7 +119,7 @@ define(
                 },
 
                 _loadError: function (err) {
-                    console.log("views/app/video::_loadError");
+                    console.log("views/app/video::_loadError", err);
                     var html = "";
                     if (err !== null) {
                         html = "Error occurred: " + err;
@@ -163,17 +165,24 @@ define(
                 },
 
                 _playerOnStateChange: function (e) {
-                    console.log("views/app/video::_playerOnStateChange", e.data);
+                    console.log("views/app/video::_playerOnStateChange", e.data, this._playerLastState);
                     if (e.data === -1) {
                         console.log("views/app/video::_playerOnStateChange - unstarted");
+                        this._recipe.loaded();
+                        this._playerLastState = e.data;
+                        this._playerLastTime = this._player.getCurrentTime();
                     }
-                    else if (e.data === YT.PlayerState.CUED) {
+                    else if (e.data === YT.PlayerState.CUED && this._playerLastState !== -1) {
                         console.log("views/app/video::_playerOnStateChange - cued");
                         this._recipe.loaded();
+                        this._playerLastState = e.data;
+                        this._playerLastTime = this._player.getCurrentTime();
                     }
                     else if (e.data === YT.PlayerState.PLAYING) {
                         console.log("views/app/video::_playerOnStateChange - playing");
                         this._recipe.startedPlayingAt(this._player.getCurrentTime());
+                        this._playerLastState = e.data;
+                        this._playerLastTime = this._player.getCurrentTime();
                     }
                     else if (e.data === YT.PlayerState.PAUSED) {
                         console.log("views/app/video::_playerOnStateChange - paused");
@@ -181,11 +190,13 @@ define(
                             // watched
                             this._recipe.watchedFromTo(this._playerLastTime, this._player.getCurrentTime());
                         }
-                        else if (this._playerLastState === YT.PlayerState.PAUSED) {
+                        else if (this._playerLastState === YT.PlayerState.PAUSED || this._playerLastState === YT.PlayerState.CUED || this._playerLastState === YT.PlayerState.ENDED) {
                             // skipped
                             this._recipe.skippedFromTo(this._playerLastTime, this._player.getCurrentTime());
                         }
                         this._recipe.pausedAt(this._player.getCurrentTime());
+                        this._playerLastState = e.data;
+                        this._playerLastTime = this._player.getCurrentTime();
                     }
                     else if (e.data === YT.PlayerState.BUFFERING) {
                         console.log("views/app/video::_playerOnStateChange - buffering");
@@ -193,13 +204,12 @@ define(
                     else if (e.data === YT.PlayerState.ENDED) {
                         console.log("views/app/video::_playerOnStateChange - ended");
                         this._recipe.completedAt(this._player.getCurrentTime());
+                        this._playerLastState = e.data;
+                        this._playerLastTime = this._player.getCurrentTime();
                     }
                     else {
                         console.log("views/app/video::_playerOnStateChange - unrecognized");
                     }
-
-                    this._playerLastState = e.data;
-                    this._playerLastTime = this._player.getCurrentTime();
                 }
             }
         );
