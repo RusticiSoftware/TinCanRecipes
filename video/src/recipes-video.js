@@ -8,7 +8,8 @@ var _VERBS = {
     },
     _EXTS = {
         start: "http://id.tincanapi.com/extension/starting-point",
-        end: "http://id.tincanapi.com/extension/ending-point"
+        end: "http://id.tincanapi.com/extension/ending-point",
+        browserInfo: "http://id.tincanapi.com/extension/browser-info"
     };
 
 recipes.Video = function (options) {
@@ -28,15 +29,28 @@ recipes.Video.prototype = {
         statementCfg.actor = this._actor;
         statementCfg.object = this._activity;
         statementCfg.context = statementCfg.context || {};
+
+        if (navigator) {
+            statementCfg.context.extensions = statementCfg.context.extensions || {};
+            statementCfg.context.extensions[_EXTS.browserInfo] = {
+                code_name:           navigator.appCodeName,
+                name:                navigator.appName,
+                version:             navigator.appVersion,
+                platform:            navigator.platform,
+                "user-agent-header": navigator.userAgent,
+                "cookies-enabled":   navigator.cookieEnabled
+            };
+        }
+
         statementCfg.context.contextActivities = statementCfg.context.contextActivities || {};
         statementCfg.context.contextActivities.category = statementCfg.context.contextActivities.category || [];
         statementCfg.context.contextActivities.category.push(
             {
                 // TODO: make this part of this object/class
-                id: "http://id.tincanapi.com/recipe/video-sample/1",
+                id: "http://id.tincanapi.com/recipe/video/base/1",
                 definition: {
                     // TODO: make this part of the base class
-                    type: "http://id.tincanapi.com/activityType/recipe"
+                    type: "http://id.tincanapi.com/activitytype/recipe"
                 }
             }
         );

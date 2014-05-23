@@ -49,7 +49,7 @@ recipes.Checklist.prototype = {
                 id: "http://id.tincanapi.com/recipe/checklist-sample/1",
                 definition: {
                     // TODO: make this part of the base class
-                    type: "http://id.tincanapi.com/activityType/recipe"
+                    type: "http://id.tincanapi.com/activitytype/recipe"
                 }
             }
         );
