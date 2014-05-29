@@ -1,4 +1,5 @@
-var _VERBS = {
+var _VIDEO_TYPE = "http://activitystrea.ms/schema/1.0/video",
+    _VERBS = {
         completed: "http://adlnet.gov/expapi/verbs/completed",
         loaded: "http://adlnet.gov/expapi/verbs/launched",
         paused: "http://id.tincanapi.com/verb/paused",
@@ -18,6 +19,9 @@ recipes.Video = function (options) {
     this._lrs = options.lrs;
     this._actor = options.actor;
     this._activity = options.activity;
+
+    this._activity.definition = this._activity.definition || {};
+    this._activity.definition.type = _VIDEO_TYPE;
 };
 recipes.Video.prototype = {
     // TODO: refactor this into a core Recipes method?

@@ -18,7 +18,8 @@ define(
         /*global YT*/
         "use strict";
         var CLASS_NAME = "rs-app-video",
-            API_LOADING_CLASS_NAME = CLASS_NAME + "-apiLoading";
+            API_LOADING_CLASS_NAME = CLASS_NAME + "-apiLoading",
+            EXT_DURATION = "http://id.tincanapi.com/extension/duration";
 
         return ViewBase.extend(
             {
@@ -86,7 +87,8 @@ define(
                 loadVideo: function () {
                     console.log("views/app/video::loadVideo");
                     var videoUrl = this._nodes.videoUrl.val(),
-                        actorCfg = this.subviews.agent.getCfg();
+                        actorCfg = this.subviews.agent.getCfg(),
+                        videoId;
 
                     this._playerLastState = null;
                     this._playerLastTime = null;
@@ -105,17 +107,74 @@ define(
                         return;
                     }
 
-                    this._recipe = new Recipes.Video (
+                    videoId = this._idFromUrl(videoUrl);
+                    if (typeof videoId === "undefined" || videoId === "") {
+                        this._loadError("Unable to determine video id from URL");
+                        return;
+                    }
+
+                    Backbone.$.ajax(
+                        "http://gdata.youtube.com/feeds/api/videos/" + videoId + "?v=2&alt=jsonc",
                         {
-                            lrs: AppConfig._lrs,
-                            actor: actorCfg,
-                            activity: {
-                                id: videoUrl
-                            }
+                            method: "GET",
+                            success: _.bind(
+                                function (meta) {
+                                    console.log("views/app/video::loadVideo - success");
+                                    var video = meta.data,
+                                        name = video.title,
+                                        description = video.description,
+                                        duration = video.duration,
+                                        definition = {
+                                            name: {
+                                                "en-US": name
+                                            },
+                                            description: {
+                                                "en-US": description
+                                            }
+                                        };
+
+                                    if (duration > 0) {
+                                        definition.extensions = {};
+                                        definition.extensions[EXT_DURATION] = duration;
+                                    }
+
+                                    this._recipe = new Recipes.Video (
+                                        {
+                                            lrs: AppConfig._lrs,
+                                            actor: actorCfg,
+                                            activity: {
+                                                id: videoUrl,
+                                                definition: definition
+                                            }
+                                        }
+                                    );
+
+                                    this._player.loadVideoByUrl(videoUrl);
+                                },
+                                this
+                            ),
+                            error: _.bind(
+                                function () {
+                                    console.log("views/app/video::loadVideo - error:", arguments);
+                                    this._loadError("Unable to load video metadata");
+                                },
+                                this
+                            )
                         }
                     );
+                },
 
-                    this._player.loadVideoByUrl(videoUrl);
+                _idFromUrl: function (url) {
+                    console.log("views/app/video::_idFromUrl", url);
+                    var re = /^http:\/\/www.youtube.com\/v\/(.+)/i,
+                        match = url.match(re);
+
+                    console.log("views/app/video::_idFromUrl - match", match);
+                    if (match === null) {
+                        return;
+                    }
+
+                    return match[1];
                 },
 
                 _loadError: function (err) {
