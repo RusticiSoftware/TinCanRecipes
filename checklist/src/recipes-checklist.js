@@ -22,7 +22,9 @@ var _VERBS = {
         completed: "http://activitystrea.ms/schema/1.0/complete",
         opened: "http://activitystrea.ms/schema/1.0/open",
         terminated: "http://activitystrea.ms/schema/1.0/terminate"
-    };
+    },
+    _ACT_TYPE_CHECKLIST = "http://id.tincanapi.com/activitytype/checklist",
+    _ACT_TYPE_CHECKLIST_ITEM = "http://id.tincanapi.com/activitytype/checklist-item";
 
 recipes.Checklist = function (options) {
     var initVerb = _VERBS.started;
@@ -38,6 +40,9 @@ recipes.Checklist = function (options) {
     this._mentor = options.mentor;
     this._activity = options.activity;
     this._registration = options.registration;
+
+    this._activity.definition = this._activity.definition || {};
+    this._activity.definition.type = _ACT_TYPE_CHECKLIST;
 
     this._sendStatement(
         {
@@ -63,7 +68,7 @@ recipes.Checklist.prototype = {
         statementCfg.context.contextActivities.category.push(
             {
                 // TODO: make this part of this object/class
-                id: "http://id.tincanapi.com/recipe/checklist-sample/1",
+                id: "http://id.tincanapi.com/recipe/checklist/performance-observation/1",
                 definition: {
                     // TODO: make this part of the base class
                     type: "http://id.tincanapi.com/activitytype/recipe"
@@ -131,35 +136,39 @@ recipes.Checklist.prototype = {
         this.completed(options);
     },
 
-    itemPassed: function (activityId, options) {
-        this._sendItemResult("passed", activityId, options);
+    itemPassed: function (activity, options) {
+        this._sendItemResult("passed", activity, options);
     },
 
-    itemFailed: function (activityId, options) {
-        this._sendItemResult("failed", activityId, options);
+    itemFailed: function (activity, options) {
+        this._sendItemResult("failed", activity, options);
     },
 
-    itemCleared: function (activityId, options) {
-        this._sendItemResult(null, activityId, options);
+    itemCleared: function (activity, options) {
+        this._sendItemResult(null, activity, options);
     },
 
-    // TODO: allow pass Activity?
-    _sendItemResult: function (result, activityId, options) {
+    // TODO: allow pass just Activity ID and inflate?
+    _sendItemResult: function (result, activity, options) {
+        activity.definition = activity.definition || {};
+        activity.definition.type = _ACT_TYPE_CHECKLIST_ITEM;
+
         options = options || {};
+        options.context = options.context || {};
+        options.context.contextActivities = options.context.contextActivities || {};
+        options.context.contextActivities.parent = options.context.contextActivities.parent || [];
+
+        if (typeof options.context.contextActivities.parent.push === "undefined") {
+            // must already be an activity, but not an array, so make it one
+            options.context.contextActivities.parent = [ options.context.contextActivities.parent ];
+        }
+
+        options.context.contextActivities.parent.push(this._activity);
 
         var statementCfg = {
                 verb: {},
-                object: {
-                    // TODO: add a definition with a type, name, description, etc.
-                    id: activityId
-                },
-                context: {
-                    contextActivities: {
-                        parent: [
-                            this._activity
-                        ]
-                    }
-                }
+                object: activity,
+                context: options.context
             };
 
         if (result === null) {

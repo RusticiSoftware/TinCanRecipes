@@ -60,9 +60,7 @@ define(
                             lrs: AppConfig._lrs,
                             actor: this.model.get("actor"),
                             mentor: this.model.get("mentor"),
-                            activity: {
-                                id: this.model.get("config").get("id")
-                            },
+                            activity: this.model.get("config").toTinCanActivity(),
                             registration: this.model.get("id")
                         };
                     options = options || {};
@@ -132,7 +130,7 @@ define(
                     var methodName = "item" + itemResult.charAt(0).toUpperCase() + itemResult.slice(1);
 
                     this._recipe[methodName](
-                        item.get("id"),
+                        item.get("config").toTinCanActivity(),
                         {
                             callback: function (err, result) {
                                 console.log("views/checklist::_handleItemResult - pass/fail - callback:", err);
@@ -142,7 +140,8 @@ define(
                                     return;
                                 }
                                 item.set("result", itemResult);
-                            }
+                            },
+                            context: item.get("config").get("context")
                         }
                     );
                 },
@@ -160,7 +159,7 @@ define(
                 _handleItemClear: function (item) {
                     console.log("views/checklist::_handleItemClear");
                     this._recipe.itemCleared(
-                        item.get("id"),
+                        item.get("config").toTinCanActivity(),
                         {
                             callback: function (err, result) {
                                 console.log("views/checklist::_handleItemClear - callback:", err);
@@ -170,7 +169,8 @@ define(
                                     return;
                                 }
                                 item.set("result", null);
-                            }
+                            },
+                            context: item.get("config").get("context")
                         }
                     );
                 },

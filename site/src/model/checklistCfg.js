@@ -17,9 +17,10 @@ define(
     [
         "backbone",
         "underscore",
+        "tincanjs",
         "collection/checklistItemCfgs"
     ],
-    function (Backbone, _, Items) {
+    function (Backbone, _, TinCan, Items) {
         "use strict";
 
         return Backbone.Model.extend(
@@ -42,6 +43,27 @@ define(
                             items: this._items.toJSON()
                         }
                     );
+                },
+
+                toTinCanActivity: function () {
+                    var attrs = _.clone(this.attributes),
+                        cfg = {
+                            id: this.id
+                        };
+                    if (attrs.name !== null || attrs.description !== null) {
+                        cfg.definition = {};
+                        if (attrs.name !== null) {
+                            cfg.definition.name = {
+                                "en-US": attrs.name
+                            };
+                        }
+                        if (attrs.description !== null) {
+                            cfg.definition.description = {
+                                "en-US": attrs.description
+                            };
+                        }
+                    }
+                    return new TinCan.Activity(cfg);
                 }
             }
         );

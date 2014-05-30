@@ -15,9 +15,10 @@
 */
 define(
     [
-        "backbone"
+        "backbone",
+        "tincanjs"
     ],
-    function (Backbone) {
+    function (Backbone, TinCan) {
         "use strict";
 
         return Backbone.Model.extend(
@@ -27,6 +28,27 @@ define(
                     name: null,
                     description: null,
                     context: null
+                },
+
+                toTinCanActivity: function () {
+                    var toJSON = this.toJSON(),
+                        cfg = {
+                            id: this.id
+                        };
+                    if (toJSON.name !== null || toJSON.description !== null) {
+                        cfg.definition = {};
+                        if (toJSON.name !== null) {
+                            cfg.definition.name = {
+                                "en-US": toJSON.name
+                            };
+                        }
+                        if (toJSON.description !== null) {
+                            cfg.definition.description = {
+                                "en-US": toJSON.description
+                            };
+                        }
+                    }
+                    return new TinCan.Activity(cfg);
                 }
             }
         );
