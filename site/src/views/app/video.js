@@ -129,16 +129,21 @@ define(
                     }
 
                     Backbone.$.ajax(
-                        "http://gdata.youtube.com/feeds/api/videos/" + videoId + "?v=2&alt=jsonc",
+                        "https://www.googleapis.com/youtube/v3/videos",
                         {
                             method: "GET",
+                            data: {
+                                id: videoId,
+                                key: AppConfig.video.apiKey,
+                                part: "snippet,contentDetails,localizations"
+                            },
                             success: _.bind(
                                 function (meta) {
                                     console.log("views/app/video::loadVideo - success");
-                                    var video = meta.data,
-                                        name = video.title,
-                                        description = video.description,
-                                        duration = video.duration,
+                                    var video = meta.items[0],
+                                        name = video.snippet.localized.title,
+                                        description = video.snippet.localized.description,
+                                        duration = video.contentDetails.duration,
                                         definition = {
                                             name: {
                                                 "en-US": name
@@ -148,7 +153,7 @@ define(
                                             }
                                         };
 
-                                    if (duration > 0) {
+                                    if (duration !== "") {
                                         definition.extensions = {};
                                         definition.extensions[EXT_DURATION] = duration;
                                     }

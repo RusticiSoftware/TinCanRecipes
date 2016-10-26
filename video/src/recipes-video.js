@@ -17,7 +17,7 @@
 
 var _VIDEO_TYPE = "http://activitystrea.ms/schema/1.0/video",
     _VERBS = {
-        completed: "http://adlnet.gov/expapi/verbs/completed",
+        completed: "http://activitystrea.ms/schema/1.0/complete",
         loaded: "http://adlnet.gov/expapi/verbs/launched",
         paused: "http://id.tincanapi.com/verb/paused",
         played: "http://activitystrea.ms/schema/1.0/play",

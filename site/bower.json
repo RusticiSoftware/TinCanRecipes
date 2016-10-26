@@ -6,7 +6,6 @@
     "requirejs": "2.1.8",
     "almond": "0.2.6",
     "jquery": "1.10.2",
-    "handlebars": "1.1.2",
     "backbone": "1.1.0",
     "backbone.subviews": "*",
     "underscore": "1.5.2",

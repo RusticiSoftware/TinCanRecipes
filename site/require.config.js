@@ -6,7 +6,7 @@ require.config({
         "underscore": "../bower_components/underscore/underscore",
         "backbone": "../bower_components/backbone/backbone",
         "backbone.subviews": "../bower_components/backbone.subviews/backbone.subviews",
-        "handlebars": "../bower_components/handlebars/handlebars.runtime",
+        "handlebars": "../node_modules/handlebars/dist/handlebars.runtime",
         "moment": "../bower_components/momentjs/moment",
         "tincanjs": "../node_modules/tincan-recipes/node_modules/tincanjs/build/tincan",
         "tincan-recipes": "../node_modules/tincan-recipes/build/recipes",

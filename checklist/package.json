@@ -1,14 +1,14 @@
 {
   "name": "tincan-recipes-checklist",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "tincan-recipes": "0.0.1"
+    "tincan-recipes": "0.1.0"
   },
   "devDependencies": {
-    "grunt": "0.4.4",
-    "grunt-contrib-jshint": "0.10.0",
-    "grunt-contrib-watch": "0.6.1",
-    "grunt-umd": "1.7.4"
+    "grunt": "1.0.1",
+    "grunt-contrib-jshint": "1.0.0",
+    "grunt-contrib-watch": "1.0.0",
+    "grunt-umd": "2.3.6"
   }
 }

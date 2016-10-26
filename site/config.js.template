@@ -9,5 +9,8 @@ var AppConfig = AppConfig || {};
         username: "",
         password: ""
     };
+    AppConfig.video = {
+        apiKey: ""
+    };
     AppConfig.checklists = [];
 }());
